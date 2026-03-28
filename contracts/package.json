@@ -1,0 +1,40 @@
+{
+  "name": "black-pools-contracts",
+  "version": "1.2.0",
+  "description": "Black Pools smart contracts",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:localhost": "hardhat run tasks/deploy-vault.ts --network localhost",
+    "deploy:arb-sepolia": "hardhat run tasks/deploy-vault.ts --network arbitrumSepolia",
+    "demo:localhost": "hardhat run tasks/demo-vault.ts --network localhost",
+    "demo:arb-sepolia": "hardhat run tasks/demo-vault.ts --network arbitrumSepolia",
+    "arb-sepolia:deploy-vault": "hardhat run tasks/deploy-vault.ts --network arbitrumSepolia",
+    "arb-sepolia:demo-vault": "hardhat run tasks/demo-vault.ts --network arbitrumSepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@typechain/ethers-v6": "0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.6",
+    "chai": "^4.3.10",
+    "cofhe-hardhat-plugin": "^0.1.4",
+    "cofhejs": "^0.1.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.10.0",
+    "hardhat": "^2.19.5",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@fhenixprotocol/cofhe-contracts": "0.0.13",
+    "cofhejs": "^0.1.0"
+  }
+}
