@@ -21,12 +21,11 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
 
     // ── Internal helpers ─────────────────────────────────────────────────────
 
-    /// @dev Allocate an encrypted zero AND immediately grant this contract
-    ///      read/operate access. Without the allowThis call the handle is
-    ///      locked — any subsequent FHE operation on it reverts with
-    ///      InvalidInputForFunction.
-    function _initZero() internal returns (euint128 z) {
-        z = FHE.asEuint128(0);
+    /// @dev Derive an encrypted zero from a valid encrypted uint128 handle.
+    ///      The mock TaskManager mis-tags FHE.asEuint128(0), so we build zero
+    ///      from a typed seed instead.
+    function _initZeroFrom(euint128 seed) internal returns (euint128 z) {
+        z = FHE.sub(seed, seed);
         FHE.allowThis(z);
     }
 
@@ -40,20 +39,42 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         }
     }
 
+    /// @dev Initialise market totals from a typed encrypted seed before the
+    ///      first FHE operation touches them.
+    function _initMarketIfNeeded(bytes32 marketId, euint128 seed) internal {
+        Market storage m = _markets[marketId];
+        if (euint128.unwrap(m.totalSupplyAssets) == 0) {
+            m.totalSupplyAssets = _initZeroFrom(seed);
+            _allow(m.totalSupplyAssets, address(0));
+        }
+        if (euint128.unwrap(m.totalBorrowAssets) == 0) {
+            m.totalBorrowAssets = _initZeroFrom(seed);
+            _allow(m.totalBorrowAssets, address(0));
+        }
+        if (euint128.unwrap(m.totalSupplyShares) == 0) {
+            m.totalSupplyShares = _initZeroFrom(seed);
+            _allow(m.totalSupplyShares, address(0));
+        }
+        if (euint128.unwrap(m.totalBorrowShares) == 0) {
+            m.totalBorrowShares = _initZeroFrom(seed);
+            _allow(m.totalBorrowShares, address(0));
+        }
+    }
+
     /// @dev New users have storage-zero euint128 fields (not valid FHE
     ///      handles). Initialise them before the first FHE operation.
-    function _initPositionIfNeeded(bytes32 marketId, address user) internal {
+    function _initPositionIfNeeded(bytes32 marketId, address user, euint128 seed) internal {
         Position storage p = _positions[marketId][user];
         if (euint128.unwrap(p.supplyShares) == 0) {
-            p.supplyShares = _initZero();
+            p.supplyShares = _initZeroFrom(seed);
             _allow(p.supplyShares, user);
         }
         if (euint128.unwrap(p.borrowShares) == 0) {
-            p.borrowShares = _initZero();
+            p.borrowShares = _initZeroFrom(seed);
             _allow(p.borrowShares, user);
         }
         if (euint128.unwrap(p.collateral) == 0) {
-            p.collateral = _initZero();
+            p.collateral = _initZeroFrom(seed);
             _allow(p.collateral, user);
         }
     }
@@ -65,18 +86,9 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         bytes32 marketId = params.id();
         require(!MarketLib.isCreated(_markets[marketId]), "BlackPools: market exists");
 
-        // _initZero() = FHE.asEuint128(0) + FHE.allowThis().
-        // The old code called FHE.asEuint128(0) without allowThis, leaving
-        // the contract locked out of its own state. Every FHE.add on these
-        // totals then reverted with InvalidInputForFunction("add", 0).
-        _markets[marketId].totalSupplyAssets = _initZero();
-        _markets[marketId].totalBorrowAssets = _initZero();
-        _markets[marketId].totalSupplyShares = _initZero();
-        _markets[marketId].totalBorrowShares = _initZero();
-        _allow(_markets[marketId].totalSupplyAssets, address(0));
-        _allow(_markets[marketId].totalBorrowAssets, address(0));
-        _allow(_markets[marketId].totalSupplyShares, address(0));
-        _allow(_markets[marketId].totalBorrowShares, address(0));
+        // Encrypted totals are lazily initialised from the first typed euint128
+        // that touches the market. This avoids the mock TaskManager bug around
+        // FHE.asEuint128(0) metadata.
         _markets[marketId].lastUpdate        = block.timestamp;
         _markets[marketId].fee               = 0;
         _marketParams[marketId]              = params;
@@ -103,7 +115,8 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
 
         euint128 shares = assets; // 1:1 for testnet
 
-        _initPositionIfNeeded(marketId, onBehalfOf);
+        _initMarketIfNeeded(marketId, assets);
+        _initPositionIfNeeded(marketId, onBehalfOf, assets);
 
         _markets[marketId].totalSupplyAssets =
             FHE.add(_markets[marketId].totalSupplyAssets, assets);
@@ -170,7 +183,7 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         FHE.allowThis(collateral);
         FHE.allowSender(collateral);
 
-        _initPositionIfNeeded(marketId, user);
+        _initPositionIfNeeded(marketId, user, collateral);
 
         _positions[marketId][user].collateral =
             FHE.add(_positions[marketId][user].collateral, collateral);
@@ -221,7 +234,8 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         FHE.allowThis(borrowAmount);
         FHE.allowSender(borrowAmount);
 
-        _initPositionIfNeeded(marketId, user);
+        _initMarketIfNeeded(marketId, borrowAmount);
+        _initPositionIfNeeded(marketId, user, borrowAmount);
 
         euint128 newBorrowShares = FHE.add(_positions[marketId][user].borrowShares, borrowAmount);
         FHE.allowThis(newBorrowShares);
@@ -231,7 +245,7 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         FHE.allowThis(required);
         ebool isSafe = FHE.gte(_positions[marketId][user].collateral, required);
         FHE.allowThis(isSafe);
-        euint128 zero = _initZero();
+        euint128 zero = _initZeroFrom(borrowAmount);
         euint128 sharesToAdd = FHE.select(isSafe, borrowAmount, zero);
         FHE.allowThis(sharesToAdd);
 
@@ -267,7 +281,8 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         FHE.allowThis(repayAmount);
         FHE.allowSender(repayAmount);
 
-        _initPositionIfNeeded(marketId, user);
+        _initMarketIfNeeded(marketId, repayAmount);
+        _initPositionIfNeeded(marketId, user, repayAmount);
 
         _markets[marketId].totalBorrowAssets =
             FHE.sub(_markets[marketId].totalBorrowAssets, repayAmount);
@@ -297,6 +312,7 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
 
         euint128 rate = FHE.asEuint128(encryptedRate);
         FHE.allowThis(rate);
+        _initMarketIfNeeded(marketId, rate);
         euint128 elapsedEnc = FHE.asEuint128(uint128(elapsed));
         FHE.allowThis(elapsedEnc);
         euint128 interest = FHE.mul(_markets[marketId].totalBorrowAssets, FHE.mul(rate, elapsedEnc));
@@ -328,6 +344,8 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         euint128 seizedAssets = FHE.asEuint128(encryptedSeizedAssets);
         FHE.allowThis(seizedAssets);
         FHE.allowSender(seizedAssets);
+        _initMarketIfNeeded(marketId, seizedAssets);
+        _initPositionIfNeeded(marketId, borrower, seizedAssets);
 
         euint128 repaid = seizedAssets; // 1:1 for testnet
 
@@ -367,3 +385,6 @@ contract BlackPools is IBlackPools, ReentrancyGuard {
         return MarketLib.isCreated(_markets[marketId]);
     }
 }
+
+
+
