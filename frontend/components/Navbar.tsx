@@ -32,7 +32,7 @@ const Navbar = () => {
 		 <p>Blackpools</p>
 		</a>
 		
-		<ul>
+		<ul className="list-none">
 		 {navLinks.map((link) => (
 			<li key={link.id}>
 			 <Link href={`${link.id}`}>{link.title}</Link>
