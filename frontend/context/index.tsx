@@ -17,7 +17,7 @@ if (!projectId) {
 const metadata = {
   name: 'BlackPools',
   description: 'Confidential Lending',
-  url: 'http://localhost:3000', // origin must match your domain & subdomain
+  url: 'https://black-pools.vercel.app', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
