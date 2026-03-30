@@ -59,7 +59,7 @@ Fully Homomorphic Encryption
 	 
 	 <div className="features-grid">
         {features.map((feature, index) => (
-          <div key={index} className="col-span-3">
+          <div key={index} className="col-span-4">
             <div className="feature-card p-6 bg-blue rounded-lg h-full">
               <div className="feature-icon">
                 <img
@@ -75,7 +75,7 @@ Fully Homomorphic Encryption
             </div>
           </div>
         ))}
-		<div className='col-span-9 bg-green'>
+		<div className='col-span-4 bg-green'>
 			<h1 className='text-center text-white'>Blackpool</h1>
 		</div>
       </div>

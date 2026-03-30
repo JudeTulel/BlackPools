@@ -6,6 +6,7 @@ import { SplitText } from "gsap/all";
 import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import Particles from "@/components/Particles";
+import ConnectButton from "@/components/ConnectButton";
 
 
 const Hero = () => {
@@ -113,8 +114,8 @@ const Hero = () => {
 			
 			<div className="view-cocktails">
 			 
-       <a href="" className="badge">Connect Wallet</a>
-			 <a href="#about" className="alt-badge">Learn More</a>
+			<ConnectButton  />
+						 <a href="#about" className="alt-badge">Learn More</a>
 			</div>
 		 </div>
 		</div>
