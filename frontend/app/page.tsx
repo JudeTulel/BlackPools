@@ -112,9 +112,7 @@ const Hero = () => {
 			</div>
 			
 			<div className="view-cocktails">
-			 <p className="subtitle">
-       Black Pools is a confidential lending and borrowing protocol powered by Fully Homomorphic Encryption (FHE)
-			 </p>
+			 
        <a href="" className="badge">Connect Wallet</a>
 			 <a href="#about" className="alt-badge">Learn More</a>
 			</div>

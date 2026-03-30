@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 
 import { MorphSVGPlugin, ScrambleTextPlugin, ScrollTrigger, SplitText, ScrollSmoother, DrawSVGPlugin, Flip } from 'gsap/all'
 import gsap from 'gsap'
+import Footer from "@/components/Footer";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, MorphSVGPlugin, ScrambleTextPlugin, ScrollSmoother, DrawSVGPlugin, Flip)
 
@@ -41,7 +42,7 @@ export default function RootLayout({
         
         <Navbar />
         {children}
-      
+      <Footer/>
       
       </body>
     </html>
