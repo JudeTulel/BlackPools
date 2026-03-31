@@ -1,3 +1,2 @@
-import TUSDTAbiJson from './TUSDT.json'
-
-export const TUSDTAbi = TUSDTAbiJson
+import TUSDT_ABI from './TUSDT.json';
+export const TUSDTAbi = TUSDT_ABI

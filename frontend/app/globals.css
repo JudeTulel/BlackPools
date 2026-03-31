@@ -56,11 +56,11 @@ body {
   box-shadow: 0px 4px 40px 0px #00000066;
 }
 
-@utility green-img {
-  background: url("/images/green.png") no-repeat center;
+@utility light-bg {
+  background: url("/images/darkbg.png") no-repeat center;
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: fit;
   position: absolute;
 }
 
@@ -127,13 +127,13 @@ nav {
         .content {
             @apply flex lg:flex-row flex-col w-full gap-10 justify-between items-center lg:items-end mx-auto;
 
-            p:nth-of-type(2) {             
-                @apply 2xl:text-start text-center;
-            }
+            p:nth-of-type(2) {
+              @apply font-nunito text-6xl text-green max-w-xl;
+          }
 
-            p:last-of-type {
-                @apply font-bold text-6xl text-green max-w-xl;
-            }
+          p:last-of-type {
+              @apply 2xl:text-start text-center;
+          }
 
             .hero-buttons {
                 @apply space-y-5 text-lg lg:max-w-2xs md:max-w-xs w-full flex-row ;
@@ -982,7 +982,7 @@ nav {
   }
   /* ── Footer ── */
   #footer {
-    @apply w-full py-10 bg-blue text-center text-sm text-gray-500;
+    @apply w-full py-10 text-center text-sm text-gray-500;
     h1 {
         @apply text-3xl font-schibsted-grotesk mb-5 text-green;
     }

@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { headers } from 'next/headers' // added
 import ContextProvider from '@/context'
 import Particles from "@/components/Particles";
-import GooeyNav from "@/components/GooeyNav";
+
 
 import { MorphSVGPlugin, ScrambleTextPlugin, ScrollTrigger, SplitText, ScrollSmoother, DrawSVGPlugin, Flip } from 'gsap/all'
 import gsap from 'gsap'
@@ -33,6 +33,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Blackpools",
   description: "Confidential Lending",
+  icons: {
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default async function RootLayout({

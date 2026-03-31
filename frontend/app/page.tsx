@@ -75,10 +75,11 @@ const Hero = () => {
 		 <div className="content">
 			<div className="space-y-5 hidden md:block">
 			 <p>Earn. Lend. Borrow.</p>
-			 </div>
+			 
 			 <p className="subtitle">
 				Hidden<br />Liquidity 
 			 </p>
+			 </div>
 			 
 			
 			

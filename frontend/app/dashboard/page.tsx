@@ -5,29 +5,8 @@ import useGetEthSepoliaGetBalanceOfTUSDT from '@/lib/balance-checker'
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { formatUnits } from 'viem';
 import { ethereumSepolia } from '@/config';
+import { NETWORKS, RECENT_TXS, TX_COLORS } from '@/constants';
 
-// ─── Network config ───────────────────────────────────────────────
-const NETWORKS = [
-  { id: 'ethereum', label: 'Ethereum', icon: '/images/networks/eth.png', color: '#627EEA' },
-  { id: 'base',     label: 'Base',     icon: '/images/networks/base.png', color: '#0052FF' },
-  { id: 'arbitrum', label: 'Arbitrum', icon: '/images/networks/arb.png',  color: '#12AAFF' },
-]
-
-// ─── Dummy recent transactions ─────────────────────────────────────
-const RECENT_TXS = [
-  { id: '0x1a2b…9f0e', type: 'Deposit',    asset: 'USDT',  network: 'Ethereum', amount: '+500.00',  usd: '$500.00',  status: 'confirmed', time: '2 min ago' },
-  { id: '0x3c4d…8e1f', type: 'Borrow',     asset: 'ETH',   network: 'Base',     amount: '-0.25',    usd: '$612.50',  status: 'confirmed', time: '15 min ago' },
-  { id: '0x5e6f…7d2a', type: 'Repay',      asset: 'USDC',  network: 'Arbitrum', amount: '+250.00',  usd: '$250.00',  status: 'pending',   time: '1 hr ago' },
-  { id: '0x7g8h…6c3b', type: 'Withdraw',   asset: 'USDT',  network: 'Ethereum', amount: '-1,000.00',usd: '$1,000.00',status: 'confirmed', time: '3 hr ago' },
-  { id: '0x9i0j…5b4c', type: 'Deposit',    asset: 'USDC',  network: 'Base',     amount: '+2,000.00',usd: '$2,000.00',status: 'confirmed', time: 'Yesterday' },
-]
-
-const TX_COLORS: Record<string, string> = {
-  Deposit:  'var(--color-green)',
-  Borrow:   '#f97316',
-  Repay:    '#60a5fa',
-  Withdraw: '#f87171',
-}
 
 // ─── Mini sparkline (SVG) ──────────────────────────────────────────
 function Sparkline({ color, trend }: { color: string; trend: 'up' | 'down' }) {
