@@ -13,7 +13,13 @@ const navLinks = [
     },
 
    ];
-
+   const socials = [
+    {
+       name: "Fhenix",
+       icon: "https://cdn.prod.website-files.com/6864e9aed9e0a3fac7810db8/68a473dd63e0265d2d6cf9a3_(fhenix_)%20(16).svg",
+       url: "https://www.fhenix.io/",
+    },
+   ];
    const vaultLists = [
     {
       network: "/images/networks/eth.png",
@@ -140,5 +146,6 @@ const navLinks = [
     navLinks,
     vaultLists,
     marketsList,
-    features
+    features,
+    socials
    };
