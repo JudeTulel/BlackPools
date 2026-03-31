@@ -30,15 +30,15 @@ const Navbar = () => {
  return (
 	<nav>
 	 <div>
-		<a href="./" className="flex items-center gap-2">
+		<Link href="/" className="flex items-center gap-2">
 		 <img src="/images/logo.png" alt="logo" className='size-12'/>
 		 <p>Blackpools</p>
-		</a>
+		</Link>
 		
 		<ul className="list-none">
 		 {navLinks.map((link) => (
 			<li key={link.id}>
-			 <Link href={`${link.id}`} className='hover:text-green'>{link.title}</Link>
+			 <Link href={`/${link.id}`} className='hover:text-green'>{link.title}</Link>
 
 			 
 			</li>

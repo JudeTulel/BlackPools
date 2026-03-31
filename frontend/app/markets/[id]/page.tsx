@@ -29,6 +29,7 @@ export default function MarketDetail({ params }: MarketPageProps) {
 
   return (
     <section id="market-detail">
+      
 
       {/* ── Header ── */}
       <div className="md-header">
