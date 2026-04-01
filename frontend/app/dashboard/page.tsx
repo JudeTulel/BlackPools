@@ -121,7 +121,7 @@ const Page = () => {
   )
   const [selectedNetwork, setSelectedNetwork] = useState('ethereum')
 
-  const formattedBalance = tokenBalance !== undefined
+  const formattedBalance = tokenBalance !== undefined && tokenBalance !== null
     ? Number(formatUnits(tokenBalance, 6)).toLocaleString('en-US', { minimumFractionDigits: 2 })
     : null
 
