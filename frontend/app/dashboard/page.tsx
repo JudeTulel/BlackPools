@@ -5,29 +5,8 @@ import useGetEthSepoliaGetBalanceOfTUSDT from '@/lib/balance-checker'
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { formatUnits } from 'viem';
 import { ethereumSepolia } from '@/config';
+import { NETWORKS, RECENT_TXS, TX_COLORS } from '@/constants';
 
-// ─── Network config ───────────────────────────────────────────────
-const NETWORKS = [
-  { id: 'ethereum', label: 'Ethereum', icon: '/images/networks/eth.png', color: '#627EEA' },
-  { id: 'base',     label: 'Base',     icon: '/images/networks/base.png', color: '#0052FF' },
-  { id: 'arbitrum', label: 'Arbitrum', icon: '/images/networks/arb.png',  color: '#12AAFF' },
-]
-
-// ─── Dummy recent transactions ─────────────────────────────────────
-const RECENT_TXS = [
-  { id: '0x1a2b…9f0e', type: 'Deposit',    asset: 'USDT',  network: 'Ethereum', amount: '+500.00',  usd: '$500.00',  status: 'confirmed', time: '2 min ago' },
-  { id: '0x3c4d…8e1f', type: 'Borrow',     asset: 'ETH',   network: 'Base',     amount: '-0.25',    usd: '$612.50',  status: 'confirmed', time: '15 min ago' },
-  { id: '0x5e6f…7d2a', type: 'Repay',      asset: 'USDC',  network: 'Arbitrum', amount: '+250.00',  usd: '$250.00',  status: 'pending',   time: '1 hr ago' },
-  { id: '0x7g8h…6c3b', type: 'Withdraw',   asset: 'USDT',  network: 'Ethereum', amount: '-1,000.00',usd: '$1,000.00',status: 'confirmed', time: '3 hr ago' },
-  { id: '0x9i0j…5b4c', type: 'Deposit',    asset: 'USDC',  network: 'Base',     amount: '+2,000.00',usd: '$2,000.00',status: 'confirmed', time: 'Yesterday' },
-]
-
-const TX_COLORS: Record<string, string> = {
-  Deposit:  'var(--color-green)',
-  Borrow:   '#f97316',
-  Repay:    '#60a5fa',
-  Withdraw: '#f87171',
-}
 
 // ─── Mini sparkline (SVG) ──────────────────────────────────────────
 function Sparkline({ color, trend }: { color: string; trend: 'up' | 'down' }) {
@@ -120,10 +99,10 @@ const Page = () => {
     address as `0x${string}` | undefined
   )
   const [selectedNetwork, setSelectedNetwork] = useState('ethereum')
-  
-  const formattedBalance = typeof tokenBalance === 'bigint'
-  ? Number(formatUnits(tokenBalance, 6)).toLocaleString('en-US', { minimumFractionDigits: 2 })
-  : null
+
+  const formattedBalance = typeof tokenBalance == 'bigint'
+    ? Number(formatUnits(tokenBalance, 6)).toLocaleString('en-US', { minimumFractionDigits: 2 })
+    : null
 
   const walletDisplay = !isConnected
     ? '—'
@@ -220,10 +199,9 @@ const Page = () => {
             <span>Type</span>
             <span>Asset</span>
             <span>Network</span>
-            <span>Amount</span>
-            <span>Value</span>
-            <span>Status</span>
-            <span>Time</span>
+          
+
+          
           </div>
 
           {RECENT_TXS.map(tx => (
@@ -239,16 +217,6 @@ const Page = () => {
                   style={{ background: NETWORKS.find(n => n.label === tx.network)?.color }} />
                 {tx.network}
               </span>
-              <span className="db-tx-amount" style={{
-                color: tx.amount.startsWith('+') ? 'var(--color-green)' : '#f87171'
-              }}>
-                {tx.amount}
-              </span>
-              <span className="db-tx-usd">{tx.usd}</span>
-              <span>
-                <span className={`db-status ${tx.status}`}>{tx.status}</span>
-              </span>
-              <span className="db-tx-time">{tx.time}</span>
             </div>
           ))}
         </div>
