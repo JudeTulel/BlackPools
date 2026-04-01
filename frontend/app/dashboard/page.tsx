@@ -100,7 +100,7 @@ const Page = () => {
   )
   const [selectedNetwork, setSelectedNetwork] = useState('ethereum')
 
-  const formattedBalance = tokenBalance !== undefined
+  const formattedBalance = typeof tokenBalance == 'bigint'
     ? Number(formatUnits(tokenBalance, 6)).toLocaleString('en-US', { minimumFractionDigits: 2 })
     : null
 
@@ -199,6 +199,8 @@ const Page = () => {
             <span>Type</span>
             <span>Asset</span>
             <span>Network</span>
+          
+
           
           </div>
 
