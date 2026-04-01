@@ -2,10 +2,13 @@
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/all';
 
 import { navLinks } from '@/constants';
 import Link from 'next/link';
 import ConnectButton from './ConnectButton';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
  useGSAP(() => {
@@ -27,15 +30,15 @@ const Navbar = () => {
  return (
 	<nav>
 	 <div>
-		<a href="./" className="flex items-center gap-2">
+		<Link href="/" className="flex items-center gap-2">
 		 <img src="/images/logo.png" alt="logo" className='size-12'/>
 		 <p>Blackpools</p>
-		</a>
+		</Link>
 		
-		<ul>
+		<ul className="list-none">
 		 {navLinks.map((link) => (
 			<li key={link.id}>
-			 <Link href={`${link.id}`}>{link.title}</Link>
+			 <Link href={`/${link.id}`} className='hover:text-green'>{link.title}</Link>
 
 			 
 			</li>

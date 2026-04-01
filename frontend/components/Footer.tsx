@@ -1,4 +1,5 @@
-import { navLinks } from '@/constants';
+import { navLinks,socials } from '@/constants';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
     <div className='footer-grid'>
 		<div className="md:col-span-2">
 		 <div  className="info1" />
-         {/* <h1>Socials</h1>
+         <h1>Powered by</h1>
 		 
 		 <div className="flex-center gap-5">
 			{socials.map((social) => (
@@ -17,28 +18,28 @@ const Footer = () => {
 				rel="noopener noreferrer"
 				aria-label={social.name}
 			 >
-				<img src={social.icon} className='size-10' />
+				<img src={social.icon} className='w-64' />
 			 </a>
 			))}
-		 </div> */}
+		 </div>
 		 
 		 
 		</div>
 		
-		<div className="md:col-span-2">
+		<div className="md:col-span-2 ">
 		 <div  className="info2" />
-            <ul className='font-arvo text-xl text-white'>
+            <ul className='font-arvo text-xl text-white list-none font-schibsted-grotesk'>
 		 {navLinks.map((link) => (
 			<li key={link.id}>
-			 <a href={link.id}>{link.title}</a>
+			 <Link href={`/${link.id}`}  className='hover:text-green'>{link.title}</Link>
 			</li>
 		 ))}
 		</ul>
 		</div>
 
-        <div className="md:col-span-2">
-		<p className='text-purple mb-3 text-xl'>ystudioske@gmail.com</p>
-        <p className='text-[white]'>&copy; {new Date().getFullYear()} YStudios. All Rights Reserved.</p>
+        <div className="md:col-span-2 ">
+		<a className='text-green mb-3 text-lg' href='https://ystudios.vercel.app/'>ystudios</a>
+        <p className='text-white font-bold'>&copy; {new Date().getFullYear()} YStudios. All Rights Reserved.</p>
             </div>
         
 		
