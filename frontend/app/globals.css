@@ -75,7 +75,7 @@ body {
   }
 
   h1 {
-    @apply text-gradient text-6xl font-semibold max-sm:text-4xl;
+    @apply text-gradient text-3xl font-semibold max-sm:text-3xl;
   }
 
   h3 {
@@ -112,13 +112,13 @@ nav {
 }
   
   #hero {
-    @apply relative z-10 min-h-dvh w-full border border-transparent;
+    @apply min-h-dvh w-full px-5 sm:px-10 pt-28 pb-20 container mx-auto;
 
     h1 {
-        @apply md:mt-32 mt-40 text-4xl md:text-[16vw] leading-none text-center font-schibsted-grotesk;
+        @apply md:mt-32 mt-40 text-6xl md:text-[14vw] leading-none text-center font-schibsted-grotesk;
     }
     .hero-wallet {
-        @apply absolute right-0 xl:top-0 2xl:top-12 top-1/2  md:bottom-auto -translate-y-1/2 md:translate-y-0 md:w-fit -z-10;
+        @apply  absolute right-0 xl:top-0 2xl:top-12 top-1/2  md:bottom-auto -translate-y-1/2 md:translate-y-0 md:w-fit;
     }
 
     .body {
@@ -187,14 +187,14 @@ nav {
 
 
 #vaults {
-  @apply relative min-h-dvh w-full overflow-hidden;
+  @apply min-h-dvh w-full px-5 sm:px-10 pb-20 container mx-auto;
 
   #right-safe {
     @apply absolute right-0  md:bottom-auto -bottom-80 md:w-fit w-1/3 ;
   }
 
   .list {
-    @apply container mx-auto relative z-10 flex md:flex-row flex-col justify-between items-start gap-16 pt-40 2xl:px-0 px-5;
+    @apply container mx-auto flex md:flex-row flex-col justify-between items-start gap-16 pt-40 2xl:px-0 px-5;
 
     .popular{
       @apply space-y-6 w-full md:w-fit pb-20 md:pb-0;
@@ -235,14 +235,14 @@ nav {
 
 
 #markets {
-  @apply relative min-h-dvh w-full overflow-hidden;
+  @apply min-h-dvh w-full px-5 sm:px-10 pb-20 container mx-auto;
 
   #left-safe {
     @apply absolute left-0 top-0 md:w-fit w-1/3;
   }
 
   .list {
-    @apply container mx-auto relative z-10 flex md:flex-row flex-col
+    @apply container mx-auto flex md:flex-row flex-col
            items-end gap-16 pt-40 2xl:px-0 px-5; 
 
     .loved {
@@ -272,9 +272,7 @@ nav {
   }
 }
 
-/* ════════════════════════════════════════════════════
-   DASHBOARD  — append inside @layer components {}
-   ════════════════════════════════════════════════════ */
+
 
    #dashboard {
     @apply min-h-dvh w-full px-5 sm:px-10 pt-28 pb-20 container mx-auto space-y-10;
@@ -581,18 +579,18 @@ nav {
       @apply flex items-center;
     }
     .coin-icon {
-      @apply size-8 object-contain;
+      @apply size-7 object-contain;
     }
     .coin-icon.overlap {
-      @apply -ml-2 ring-1 ring-black/30;
+      @apply -ml-2 ;
     }
     span {
-      @apply text-[10px] text-white/60 font-medium text-center mt-1;
+      @apply text-sm text-white font-medium text-center mt-1;
     }
   }
 
     .network-name {
-      @apply text-xs text-white/50 mt-2 text-center;
+      @apply text-xs text-white/50 mt-1.5 text-center;
     }
   }
 
@@ -1106,7 +1104,7 @@ nav {
   }
   /* ── Footer ── */
   #footer {
-    @apply w-full py-10 text-center text-sm text-gray-500;
+    @apply w-full py-10 text-center text-sm bg-blue;
     h1 {
         @apply text-3xl font-schibsted-grotesk mb-5 text-green;
     }

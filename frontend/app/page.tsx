@@ -12,7 +12,7 @@ const Hero = () => {
  const isMobile = useMediaQuery({ maxWidth: 767 });
  
  useGSAP(() => {
-	const heroSplit = new SplitText(".title", {
+	const heroSplit = new SplitText(".hero-title", {
 	 type: "chars, words",
 	});
 	
@@ -60,7 +60,7 @@ const Hero = () => {
 	<>
 
 	 <section id="hero" className="noisy">
-		<h1 className="title">Blackpools</h1>
+		<h1 className="hero-title">blackpools</h1>
 		
 		<img
 		 src="/images/wallet.png"

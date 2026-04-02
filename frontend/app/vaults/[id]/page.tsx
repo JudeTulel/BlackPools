@@ -6,10 +6,11 @@ import { vaultLists } from "@/constants";
 
 // ── Exposure coin icons shown on the vault page ──────────────────────────────
 const EXPOSURE_ICONS = [
-  { src: "/images/coins/btc.png", alt: "BTC" },
-  { src: "/images/coins/weth.png", alt: "WETH" },
-  { src: "/images/coins/eth.png", alt: "ETH" },
-  { src: "/images/coins/usdc.png", alt: "USDC" },
+  
+  { src: "/images/cryptologos/meth.svg", alt: "mETH" },
+  { src: "/images/cryptologos/steth.svg", alt: "stETH" },
+  { src: "/images/cryptologos/eth.svg", alt: "ETH" },
+  { src: "/images/cryptologos/usdc.svg", alt: "USDC" },
 ];
 
 // ── Props extend VaultCardProps with extra vault-page fields ─────────────────
@@ -170,7 +171,7 @@ function VaultDetails({
                     key={icon.alt}
                     src={icon.src}
                     alt={icon.alt}
-                    className="w-8 h-8 rounded-full object-cover border-2 border-black"
+                    className="size-7 object-cover"
                     style={{ marginLeft: i === 0 ? 0 : -10, zIndex: EXPOSURE_ICONS.length - i }}
                   />
                 ))}
@@ -196,12 +197,12 @@ function VaultDetails({
         <div className="lg:flex-1 w-full flex flex-col gap-3 lg:sticky lg:top-28">
 
           {/* ── Deposit input card ──────────────────────────────────────── */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md p-5 flex flex-col gap-4">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5 flex flex-col gap-4">
 
             {/* Header */}
             <div className="flex justify-between items-center">
               <span className="text-sm text-white/60">Deposit {tokenTicker}</span>
-              <img src={token} alt={tokenTicker} className="w-6 h-6 rounded-full object-cover" />
+              <img src={token} alt={tokenTicker} className="size-6 object-cover" />
             </div>
 
             {/* Amount input */}
@@ -212,7 +213,7 @@ function VaultDetails({
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="bg-transparent text-4xl font-schibsted-grotesk font-semibold text-white/80 placeholder-white/20 outline-none w-full"
+                className="bg-transparent text-4xl font-schibsted-grotesk font-semibold text-green placeholder-white/20 outline-none w-full"
               />
               <div className="flex items-center justify-between text-sm text-white/40">
                 <span>

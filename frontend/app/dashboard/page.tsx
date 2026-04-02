@@ -147,9 +147,7 @@ const Page = () => {
           <div className="db-stat-value green">{walletDisplay}</div>
           <div className="db-stat-footer">
             <span className="db-stat-sub">TUSDT · Sepolia</span>
-            {chainId && chainId !== ethereumSepolia.id && (
-              <span className="db-warn"> Wrong network</span>
-            )}
+            
           </div>
           <div className="db-card-glow" />
         </div>
