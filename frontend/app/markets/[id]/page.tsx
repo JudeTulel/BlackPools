@@ -154,7 +154,7 @@ export default function MarketDetail({ params }: MarketPageProps) {
         {/* ── Right: sidebar ── */}
         <div className="md-sidebar">
 
-          <button className="md-borrow-btn">Borrow</button>
+          
 
           {/* Supply Collateral card */}
           <div className="md-action-card">
@@ -193,6 +193,8 @@ export default function MarketDetail({ params }: MarketPageProps) {
               <div className="md-action-bar-fill" />
             </div>
           </div>
+
+          <button className="md-borrow-btn">Borrow</button>
 
           {/* Info card */}
           <div className="md-info-card">
